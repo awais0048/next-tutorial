@@ -13,13 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-screen w-screen">
-        <div className="flex flex-1 w-screen">
+        <div className="flex h-full w-full">
+        <div className="flex flex-1  w-screen">
           <Sidebar />
           </div>
-          <div className="flex flex-col w-screen">
+          <div className="flex flex-col w-screen h-full">
           <Topbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex flex-col flex-1">{children}</main>
           </div>
         </div>
       </body>

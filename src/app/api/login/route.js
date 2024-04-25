@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import clientPromise from '../db';
 
 export async function POST(req, res) {
+
+    function isObjectNotEmpty(obj) {
+        return Object.keys(obj).length !== 0;
+      }
+
     const data = await req.json()
 
     const client = await clientPromise;
@@ -11,13 +16,14 @@ export async function POST(req, res) {
         email: data.email,
         password: data.password
     }
-    const allPosts = await db.collection('users').find(filter).toArray();
-    console.log(allPosts)
-    if (allPosts.length !== 0) {
-       return NextResponse.json({ status: true, data: allPosts });
+    const userFound = await db.collection('users').findOne(filter)
+    
+
+    if (isObjectNotEmpty(userFound)) {
+       return NextResponse.json({ status: true, data: userFound });
     }
     else {
-         return NextResponse.json({ status: false, data: allPosts });
+         return NextResponse.json({ status: false, data: userFound });
  }
 }
 
